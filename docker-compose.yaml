@@ -1,0 +1,45 @@
+version: "3.3"
+services:
+  nginx:
+    #DOCKFILE文件所在目录
+    build: ./nginx
+    #设置生成的镜像名
+    image: houdunren/nginx
+    #容器名称
+    container_name: houdunren-nginx
+    #DOCKER进程重起时重起容器
+    restart: always
+    #端口映射
+    ports:
+      - "${PORT}:80"
+    #容器依赖
+    depends_on:
+      - php
+    #目录映射
+    volumes:
+      - ./nginx/config:/etc/nginx/conf.d
+      - ./nginx/log:/var/log/nginx
+      - ./app:/www
+  php:
+    build: ./php
+    image: houdunren/php
+    container_name: houdunren-php
+    restart: always
+    volumes:
+      - ./app:/www
+    depends_on:
+      - mysql
+  mysql:
+    build: ./mysql
+    image: houdunren/mysql
+    container_name: houdunren-mysql
+    restart: always
+    environment: 
+      - MYSQL_ROOT_PASSWORD=admin888
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ONETIME_PASSWORD=${MYSQL_ONETIME_PASSWORD}
+    volumes: 
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/log:/var/log/mysql
