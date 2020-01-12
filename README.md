@@ -71,6 +71,8 @@ CONTAINER_NAME_PRE=houdunren
 #宿主机映射到容器的端口
 PORT=8080
 
+#宿主机映射到MYSQL容器的端口
+MYSQL_PORT=33060
 #ROOT管理员密码
 MYSQL_ROOT_PASSWORD=admin888
 
@@ -137,9 +139,15 @@ location ~ \.php$ {
 
 ## 数据库连接
 
-下面我们使用MYSQL管理GUI工具DBeaver连接容器数据库
+下面我们使用MYSQL管理GUI工具DBeaver连接容器数据库，默认MYSQL端口是33060可以在.env文件中修改。
 
-登录服务器允许root帐号远程访问
+如果修改了.env 中的配置需要重新编译容器
+
+```
+docker-compose up -d
+```
+
+MYSQL远程连接步骤如下：
 
 1. 进入容器
 
