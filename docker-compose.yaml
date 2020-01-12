@@ -5,7 +5,7 @@ services:
     build: ./nginx
     #设置生成的镜像名
     image: houdunren/nginx
-    #容器名称
+    #容器名称 
     container_name: "${CONTAINER_NAME_PRE}-nginx"
     #DOCKER进程重起时重起容器
     restart: always
@@ -40,6 +40,8 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ONETIME_PASSWORD=${MYSQL_ONETIME_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:3306"
     volumes: 
       - ./mysql/data:/var/lib/mysql
       - ./mysql/log:/var/log/mysql
