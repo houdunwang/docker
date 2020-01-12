@@ -28,7 +28,6 @@ Gitee 仓库：https://gitee.com/houdunren/docker
 从 **GITHUB** 或 **GITEE** 下CLONE项目代码
 
 ```
-cd 
 git clone https://gitee.com/houdunren/docker.git
 cd docker
 ```
