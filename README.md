@@ -89,6 +89,14 @@ MYSQL_ONETIME_PASSWORD=no
 MYSQL_ALLOW_EMPTY_PASSWORD
 ```
 
+### 项目配置
+
+系统包括NGINX、PHP等软件的项目配置文件，修改这些配置文件不需要重新编译，只需要在`docker-compose.yaml`文件所在目录下重起容器就可以了。
+
+```
+docker-compose restart
+```
+
 ### 编译执行
 
 执行以下命令将编译镜像并启动容器
@@ -121,8 +129,9 @@ laravel new .
 
 ```
 location / {
+	...
   root   /www/public; 
-  index  index.html index.htm index.php;
+  ...
 }
 ...
 location ~ \.php$ {
@@ -132,43 +141,47 @@ location ~ \.php$ {
 }
 ```
 
+修改配置后需要生起容器服务
+
+```
+docker-compose restart
+```
+
 现在访问就可以看到LARAVEL欢迎页面了
 
 ![image-20200112124436521](./assets/image-20200112124436521.png)
 
-## 数据库连接
+4. ## 数据库连接
 
-下面我们使用MYSQL管理GUI工具DBeaver连接容器数据库，默认MYSQL端口是33060可以在.env文件中修改。
-
-如果修改了.env 中的配置需要重新编译容器
-
-```
-docker-compose up -d
-```
-
-MYSQL远程连接步骤如下：
-
-1. 进入容器
-
+   下面我们使用MYSQL管理GUI工具DBeaver连接容器数据库，默认MYSQL端口是33060可以在.env文件中修改。
+   
+   如果修改了.env 中的配置需要重新编译容器
+   
    ```
-   docker exec -it houdunren-mysql /bin/bash
+   docker-compose up -d
    ```
-
-2. 登录mysql
-
-   ```
-   $ mysql -uroot -p
-   ```
-
-3. 修改权限
-
-   ```
-   mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'admin888';
-   mysql> flush privileges;
-   ```
-
-4. 使用DBeaver访问
-
-   ![image-20200112130002715](./assets/image-20200112130002715.png)
-
-## 
+   
+   MYSQL远程连接步骤如下：
+   
+   1. 进入容器
+   
+      ```
+      docker exec -it houdunren-mysql /bin/bash
+      ```
+   
+   2. 登录mysql
+   
+      ```
+      $ mysql -uroot -p
+      ```
+   
+   3. 修改权限
+   
+      ```
+      mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'admin888';
+      mysql> flush privileges;
+      ```
+   
+   4. 使用DBeaver访问
+   
+      ![image-20200112130002715](./assets/image-20200112130002715.png)
