@@ -6,7 +6,7 @@ services:
     #设置生成的镜像名
     image: houdunren/nginx
     #容器名称
-    container_name: houdunren-nginx
+    container_name: "${CONTAINER_NAME_PRE}-nginx"
     #DOCKER进程重起时重起容器
     restart: always
     #端口映射
@@ -23,7 +23,7 @@ services:
   php:
     build: ./php
     image: houdunren/php
-    container_name: houdunren-php
+    container_name: "${CONTAINER_NAME_PRE}-php"
     restart: always
     volumes:
       - ./app:/www
@@ -32,10 +32,10 @@ services:
   mysql:
     build: ./mysql
     image: houdunren/mysql
-    container_name: houdunren-mysql
+    container_name: "${CONTAINER_NAME_PRE}-mysql"
     restart: always
     environment: 
-      - MYSQL_ROOT_PASSWORD=admin888
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
