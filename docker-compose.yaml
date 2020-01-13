@@ -29,6 +29,14 @@ services:
       - ./app:/www
     depends_on:
       - mysql
+  redis:
+    build: ./redis
+    image: houdunren/redis
+    container_name: "${CONTAINER_NAME_PRE}-redis"
+    restart: always
+    volumes:
+      - ./redis/data:/data
+      - ./redis/config/redis.conf:/usr/local/etc/redis/redis.conf
   mysql:
     build: ./mysql
     image: houdunren/mysql

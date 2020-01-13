@@ -41,7 +41,7 @@ cd docker
 ├── app										应用目录
 │   ├── index.php
 │   └── phpinfo.php
-├── docker-compose.yaml	
+├── docker-compose.yaml	  容器编排
 ├── mysql									MYSQL容器
 │   ├── Dockerfile				镜像配置
 │   ├── data							数据结构
@@ -50,6 +50,13 @@ cd docker
 │   ├── Dockerfile
 │   ├── config
 │   │   └── default.conf	NGINX配置
+│   └── log								运行日志
+│       ├── access.log
+│       └── error.log
+├── redis						
+│   ├── Dockerfile
+│   ├── config
+│   │   └── redis.conf	  REDIS配置
 │   └── log								运行日志
 │       ├── access.log
 │       └── error.log
