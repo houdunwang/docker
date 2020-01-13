@@ -25,6 +25,50 @@ Gitee 仓库：https://gitee.com/houdunren/docker
 
 ## 安装配置
 
+### 防火墙
+
+为了在本地测试成功可以先关闭防火墙
+
+在学习阶段可以先关闭防火墙，保证端口不受访问限制，以下是LINUX管理防火墙的基本指令 
+
+```
+sudo systemctl stop firewalld.service 
+```
+
+练习时也可以永久关闭防火墙
+
+```
+sudo systemctl disable firewalld.service
+```
+
+查看防火墙状态
+
+```
+sudo systemctl status firewalld.service
+```
+
+然后重起 DOCKER
+
+```
+sudo systemctl restart docker
+```
+
+关闭setlinux
+
+ 1. 修改配置文件
+
+    ```
+    sudo vim /etc/selinux/config
+    ```
+
+	2. 修改 `SELINUX` 值为disabled
+
+    ```
+    SELINUX=disabled
+    ```
+
+### 下载项目
+
 从 **GITHUB** 或 **GITEE** 下CLONE项目代码
 
 ```
@@ -32,7 +76,7 @@ git clone https://gitee.com/houdunren/docker.git
 cd docker
 ```
 
-**目录说明**
+### 目录说明
 
 下面是实验的文件结构，便于有个全局认识
 
@@ -158,37 +202,37 @@ docker-compose restart
 
 ![image-20200112124436521](./assets/image-20200112124436521.png)
 
-4. ## 数据库连接
+## 数据库
 
-   下面我们使用MYSQL管理GUI工具DBeaver连接容器数据库，默认MYSQL端口是33060可以在.env文件中修改。
-   
-   如果修改了.env 中的配置需要重新编译容器
-   
+下面我们使用MYSQL管理GUI工具DBeaver连接容器数据库，默认MYSQL端口是33060可以在.env文件中修改。
+
+如果修改了.env 中的配置需要重新编译容器
+
+```
+docker-compose up -d
+```
+
+MYSQL远程连接步骤如下：
+
+1. 进入容器
+
    ```
-   docker-compose up -d
+   docker exec -it houdunren-mysql /bin/bash
    ```
-   
-   MYSQL远程连接步骤如下：
-   
-   1. 进入容器
-   
-      ```
-      docker exec -it houdunren-mysql /bin/bash
-      ```
-   
-   2. 登录mysql
-   
-      ```
-      $ mysql -uroot -p
-      ```
-   
-   3. 修改权限
-   
-      ```
-      mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'admin888';
-      mysql> flush privileges;
-      ```
-   
-   4. 使用DBeaver访问
-   
-      ![image-20200112130002715](./assets/image-20200112130002715.png)
+
+2. 登录mysql
+
+   ```
+   $ mysql -uroot -p
+   ```
+
+3. 修改权限
+
+   ```
+   mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'admin888';
+   mysql> flush privileges;
+   ```
+
+4. 使用DBeaver访问
+
+   ![image-20200112130002715](./assets/image-20200112130002715.png)
