@@ -28,6 +28,6 @@ RUN docker-php-ext-enable redis memcached
 #使用镜像中的生产环境PHP.INI配置文件
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 #添加自定义配置文件
-COPY ./config/php.ini $PHP_INI_DIR/php.ini
+COPY ./config/php.ini $PHP_INI_DIR/conf.d/php.ini
 # #容器工作目录
 # WORKDIR /html
