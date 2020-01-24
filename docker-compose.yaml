@@ -19,14 +19,14 @@ services:
     volumes:
       - ./nginx/config:/etc/nginx/conf.d
       - ./nginx/log:/var/log/nginx
-      - ./app:/www
+      - ./www:/www
   php:
     build: ./php
     image: houdunren/php
     container_name: "${CONTAINER_NAME_PRE}-php"
     restart: always
     volumes:
-      - ./app:/www
+      - ./www:/www
     depends_on:
       - mysql
   redis:
