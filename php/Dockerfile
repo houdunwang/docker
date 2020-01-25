@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev 
 #安装GD扩展
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd
+    && docker-php-ext-install -j$(nproc) gd pdo_mysql
 #安装REDIS/XDEBUG
 RUN apt-get install -y libmemcached-dev zlib1g-dev
 RUN pecl install redis-5.1.1 
